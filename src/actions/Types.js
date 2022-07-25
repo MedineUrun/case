@@ -1,0 +1,1 @@
+export const SESSION_DISPATCH = "SESSION_DISPATCH";
