@@ -19,7 +19,6 @@ function Home(props) { //fonksiyonumuza bilgiler props ile geliyor
 
   useEffect(() => { //servisin ne zaman ve nasıl render edileceği
     async function PageLoad() {
-
       let cities = await ServiceCaller.GetCityListWithoutAuthorization(props)
       console.log("cities", cities)
       setCityList(cities[0])

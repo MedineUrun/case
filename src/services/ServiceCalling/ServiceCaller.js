@@ -48,6 +48,54 @@ const ServiceCaller = {
         })
     },
 
+    GetHolidays: (props) => {
+        return new Promise((response, reject) => {
+            props.GetHolidays(
+                ({ HOLIDAYS }) => {
+                    if (typeof (HOLIDAYS) === 'string') {
+                        reject(new RangeError(HOLIDAYS))
+                    }
+                    response(HOLIDAYS);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    CreateHoliday: (props,holiday) => {
+        return new Promise((response, reject) => {
+            props.CreateHoliday( holiday,
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    UpdateHoliday: (props,holiday) => {
+        return new Promise((response, reject) => {
+            props.UpdateHoliday( holiday,
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
 }
 
 export default ServiceCaller;

@@ -9,6 +9,7 @@ import TariffList from './pages/TariffList';
 import Exemption from './pages/Exemption';
 import UseState from './pages/UseState';
 import AddNewTodo from './pages/AddNewTodo';
+import ExamplePages from './pages/ExamplePages';
 
 function App() {
   return (
@@ -20,11 +21,7 @@ function App() {
           <Route exact path={'/Exemption'} element={<Exemption />}/>
           <Route exact path={'/UseState'} element={<UseState />}/>
           <Route exact path={'/AddNewTodo'} element={<AddNewTodo />}/>
-
-
-
-
-
+          <Route exact path={'/ExamplePages'} element={<ExamplePages />}/>
         </Routes>
       </BrowserRouter>
     </Provider>

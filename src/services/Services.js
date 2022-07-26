@@ -37,3 +37,39 @@ export const RetrieveExemptionsWithoutAuthorization = (SuccessOperation, FailedO
             });
     }
 }
+
+export const GetHolidays = (SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName};
+        axios.post('/api/GetHolidays', body)
+            .then(response => {
+                SuccessOperation({ HOLIDAYS: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}
+
+export const CreateHoliday = (holiday, SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName, holiday};
+        axios.post('/api/CreateHoliday', body)
+            .then(response => {
+                SuccessOperation({ RESPONSE: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}
+
+export const UpdateHoliday = (holiday, SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName, holiday};
+        axios.post('/api/UpdateHoliday', body)
+            .then(response => {
+                SuccessOperation({ RESPONSE: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}
