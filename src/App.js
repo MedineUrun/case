@@ -10,6 +10,7 @@ import Exemption from './pages/Exemption';
 import UseState from './pages/UseState';
 import AddNewTodo from './pages/AddNewTodo';
 import ExamplePages from './pages/ExamplePages';
+import ExamplePages2 from './pages/ExamplePages2';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route exact path={'/UseState'} element={<UseState />}/>
           <Route exact path={'/AddNewTodo'} element={<AddNewTodo />}/>
           <Route exact path={'/ExamplePages'} element={<ExamplePages />}/>
+          <Route exact path={'/ExamplePages2'} element={<ExamplePages2 />}/>
+
         </Routes>
       </BrowserRouter>
     </Provider>

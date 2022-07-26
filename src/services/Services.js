@@ -73,3 +73,39 @@ export const UpdateHoliday = (holiday, SuccessOperation, FailedOperation) => {
             });
     }
 }
+
+export const RetrieveConstructionTypes = (SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName};
+        axios.post('/api/RetrieveConstructionTypes', body)
+            .then(response => {
+                SuccessOperation({ RESPONSE: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}
+
+export const CreateConstructionType = (SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName};
+        axios.post('/api/CreateConstructionType', body)
+            .then(response => {
+                SuccessOperation({ RESPONSE: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}
+
+export const UpdateConstructionType = (SuccessOperation, FailedOperation) => {
+    return () => {
+        const body = { userName};
+        axios.post('/api/UpdateConstructionType', body)
+            .then(response => {
+                SuccessOperation({ RESPONSE: response.data });
+            }).catch(async error => {
+                FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+            });
+    }
+}

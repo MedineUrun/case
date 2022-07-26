@@ -96,6 +96,54 @@ const ServiceCaller = {
         })
     },
 
+    RetrieveConstructionTypes: (props) => {
+        return new Promise((response, reject) => {
+            props.RetrieveConstructionTypes( 
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    CreateConstructionType: (props) => {
+        return new Promise((response, reject) => {
+            props.CreateConstructionType(
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    UpdateConstructionType: (props) => {
+        return new Promise((response, reject) => {
+            props.UpdateConstructionType(
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
 }
 
 export default ServiceCaller;
