@@ -14,7 +14,7 @@ import axios from 'axios';
 function Home(props) { //fonksiyonumuza bilgiler props ile geliyor
   const [cityList, setCityList] = useState([]) // servisimizi useState ile tanımlıyoruz.
 
-  const [CityName, setCityName] = useState("")//tablo onclick için tanımlanan row usestateleri
+  const [CityName, setCityName] = useState("")
   const [ISSCode, setISSCode] = useState("")
 
   useEffect(() => { //servisin ne zaman ve nasıl render edileceği

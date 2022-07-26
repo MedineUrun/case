@@ -14,19 +14,18 @@ import moment from 'moment';
 
  function MaterialUiPage(props) {
 
-    
     const [columnDefs, setColumnDefs] = useState([
 
         { headerName: 'Tatil Adı', field: "NameOfHoliday", sortable: true, filter: true, width: 678 },
         { headerName: 'Tatil Günü', field: "Holiday", sortable: true, filter: true, width: 678 },
 
     ]);
-    const defaultColDef = {
-        width: 'auto',
+
+     const defaultColDef = {
+       width: 'auto',
         editable: true,
     };
-
-    
+ 
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [txtHolidayName, setTxtHolidayName] = useState("")
     const [dtHoliday, setDtHoliday] = useState("")
@@ -34,8 +33,6 @@ import moment from 'moment';
     const [isSaveBtnDisabled, setIsSaveBtnDisabled] = useState(true)
     const [isUpdateBtnDisabled, setIsUpdateBtnDisabled] = useState(true)
     const [selectedHoliday, setSelectedHoliday] = useState({})
-
-
 
     useEffect(()=>{
         async function PageLoad(){
@@ -103,7 +100,7 @@ import moment from 'moment';
         }
     }
 
-     const handleSelectedHoliday = (e) =>{
+     const handleSelectedHoliday = (e) =>{ //tabloda row tıklandığında inputlara girdi olarak data verilme işleminin yapıldığı yer.
         console.log("🚀 ~ file: ExamplePages.js ~ line 81 ~ handleSelectedHoliday ~ e", e.data)
         let data = e.data
         setSelectedHoliday(data)
@@ -112,7 +109,7 @@ import moment from 'moment';
         setIsUpdateBtnDisabled(false)
         setIsSaveBtnDisabled(true)
      }
-    //////////////////////////////////////////////////////////////////
+    
     return (
         <div className='container' style={{ width: '100%', }}>
             <Grid container xs={12} className='divStyle' style={{ borderWidth: 0.5, width: '100%', marginTop: '0.75vw', boxShadow: '0 0 0.6vw 0 #aeaeae' }}>
@@ -127,7 +124,6 @@ import moment from 'moment';
                                 <input value={txtHolidayName} onChange={(e) => setTxtHolidayName(e.target.value)} style={pageStyle.inputStyle} />
                             </div>
                         </div>
-
                         <div style={{ flexDirection: 'row', width: '100%', display: 'flex', marginBottom: '-1%' }}>
                             <Typography style={pageStyle.labelStyle}>Tatil Günü:</Typography>
                             <div style={{ width: '65%', }}>
@@ -169,7 +165,6 @@ import moment from 'moment';
                             onRowClicked={handleSelectedHoliday}
                             rowSelection={'single'}
                             columnDefs={columnDefs}>
-
                         </AgGridReact>
                     </div>
                 </Grid>
@@ -195,9 +190,6 @@ const pageStyle = {
         marginLeft: '3%',
         marginRight: '3%',
         marginTop: '1%'
-
-
-
     }
 }
 
