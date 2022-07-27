@@ -29,7 +29,8 @@ function MaterialUiPage(props) {
     const [isSaveBtnDisabled, setIsSaveBtnDisabled] = useState(true)
     const [isUpdateBtnDisabled, setIsUpdateBtnDisabled] = useState(true)
     const [chkIsConstructionTypeActive, setChkIsConstructionTypeActive] = useState(false)
-    
+    const [selectedConstructionType, setSelectedConstructionType] = useState({})
+
 
     useEffect(() => {
         async function PageLoad() {
@@ -51,8 +52,10 @@ function MaterialUiPage(props) {
         setTxtConstructionTypeCode(data.ConstructionTypeCode)
         setTxtConstructionTypeName(data.ConstructionTypeName)
         setChkIsConstructionTypeActive(data.IsActive)
+        setIsUpdateBtnDisabled(false)
+        setIsSaveBtnDisabled(true)
+        setSelectedConstructionType(e.data)
     }
-
 
     const ClearConstructionFields = () => {
         setIsSaveBtnDisabled(false)
@@ -68,12 +71,36 @@ function MaterialUiPage(props) {
         try {
             let strConstructionTypes = await ServiceCaller.CreateConstructionType(props, constructionType);
             console.log("strConstructionTypes", strConstructionTypes)
-            strConstructionTypes(strConstructionTypes[0])
+            setConstructionList(strConstructionTypes[0])
             alert("Emlak sınıf türü başarıyla kaydedildi.")
-
-
         }
         catch (error) {
+            console.log(error)
+            alert("Hata")
+        }
+    }
+
+    const UpdateConstructionType = async () =>
+    {
+        let constructionType = selectedConstructionType
+        constructionType.ConstructionTypeName = txtConstructionTypeName;
+        constructionType.IsActive = chkIsConstructionTypeActive;
+
+        try
+        {
+            let strConstructionTypes = await ServiceCaller.UpdateConstructionType(props, constructionType);
+           // strConstructionTypes.DataBind();
+            setConstructionList(strConstructionTypes[0])
+            alert("Emlak sınıf türü başarıyla güncellendi.")
+           // DisableConstructionTypeFields();
+
+           setTxtConstructionTypeCode("")
+           setTxtConstructionTypeName("")
+           setIsUpdateBtnDisabled(true)
+           setIsSaveBtnDisabled(true)
+        }
+        catch (error) {
+            console.log(error)
             alert("Hata")
         }
     }
@@ -100,7 +127,7 @@ function MaterialUiPage(props) {
                         </div>
                         <div style={{ marginTop: '0.90%', flexDirection: 'row', width: '100%', display: 'flex', marginBottom: '-1%' }}>
                             <Typography style={pageStyle.labelStyle}>Aktif:</Typography>
-                            <input checked={chkIsConstructionTypeActive} onChange={(e)=>setChkIsConstructionTypeActive(e.target.checked)} style={{ marginLeft: '-0.90%' }} type='checkbox'/>
+                            <input checked={chkIsConstructionTypeActive} onChange={(e) => setChkIsConstructionTypeActive(e.target.checked)} style={{ marginLeft: '-0.90%' }} type='checkbox' />
                         </div>
                         <Button
                             onClick={ClearConstructionFields}
@@ -115,6 +142,8 @@ function MaterialUiPage(props) {
                             <Typography style={{ width: '40%', fontSize: '10px', marginRight: '13px' }}>Kaydet</Typography>
                         </Button>
                         <Button
+                            onClick={UpdateConstructionType}
+                            disabled={isUpdateBtnDisabled}
                             style={{ opacity: isUpdateBtnDisabled ? 0.6 : 1, color: ' #fff', width: '160px', marginBottom: '1%', marginLeft: '3%', marginTop: '1%', backgroundColor: '#388E3C', boxShadow: '0 0 0.6vw 0 #aeaeae' }}>
                             <Typography style={{ width: '40%', fontSize: '10px', marginRight: '13px' }}>Güncelle</Typography>
                         </Button>
@@ -162,7 +191,6 @@ const pageStyle = {
         marginTop: '1%'
     }
 }
-
 export default connect(null, {
     RetrieveConstructionTypes,
     CreateConstructionType,

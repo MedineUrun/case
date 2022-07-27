@@ -112,9 +112,10 @@ const ServiceCaller = {
         })
     },
 
-    CreateConstructionType: (props) => {
+    CreateConstructionType: (props, constructionType) => {
         return new Promise((response, reject) => {
             props.CreateConstructionType(
+                constructionType,
                 ({ RESPONSE }) => {
                     if (typeof (RESPONSE) === 'string') {
                         reject(new RangeError(RESPONSE))
@@ -128,9 +129,10 @@ const ServiceCaller = {
         })
     },
 
-    UpdateConstructionType: (props) => {
+    UpdateConstructionType: (props, constructionType) => {
         return new Promise((response, reject) => {
             props.UpdateConstructionType(
+                constructionType,
                 ({ RESPONSE }) => {
                     if (typeof (RESPONSE) === 'string') {
                         reject(new RangeError(RESPONSE))
