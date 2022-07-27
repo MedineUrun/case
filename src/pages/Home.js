@@ -53,7 +53,6 @@ function Home(props) { //fonksiyonumuza bilgiler props ile geliyor
         </Grid>
         <Grid item xs={5} style={{ fontWeight: '600', textAlign: 'left', borderRadius: '6px' }}>
           <div style={{ height: '12vw', display: 'flex', flexDirection: 'column', width: '100%', marginTop: '2%', marginRight: '10%' }}>
-
             <div style={{ flexDirection: 'row', display: 'flex' }}>
               <Typography style={pageStyle.labelStyle}>Şehir Kodu:</Typography>
               <input value={ISSCode} onChange={value => setISSCode(value.target.value)} style={pageStyle.inputStyle} />

@@ -109,3 +109,53 @@ export const UpdateConstructionType = (constructionType, SuccessOperation, Faile
             });
     }
 }
+
+/////////
+
+export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, parameterTypeCode: PARAMETER_TYPE_CODE };
+      axios.post('/api/RetrieveParametersWithoutAuthorization', body)
+        .then(async response => {
+          SuccessOperation({ RESPONSE: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const RetrieveExpenseRatioList = (EXPENSE_TYPE, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, expenseType: EXPENSE_TYPE };
+      axios.post('/api/RetrieveExpenseRatioList', body)
+        .then(async response => {
+          SuccessOperation({ RESPONSE: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const SaveExpenseRatio = (EXPENSE_RATIO, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, expenseRatio: EXPENSE_RATIO };
+      axios.post('/api/SaveExpenseRatio', body)
+        .then(async response => {
+          SuccessOperation({ SAVED_EXPENSE_RATIO: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const UpdateExpenseRatio = (EXPENSE_RATIO, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, expenseRatio: EXPENSE_RATIO };
+      axios.post('/api/UpdateExpenseRatio', body)
+        .then(async response => {
+          SuccessOperation({ UPDATED_EXPENSE_RATIO: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }

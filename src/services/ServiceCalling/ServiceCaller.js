@@ -128,11 +128,63 @@ const ServiceCaller = {
             );
         })
     },
+///////////////////////////////
 
-    UpdateConstructionType: (props, constructionType) => {
+    RetrieveParametersWithoutAuthorization: (props, parameterTypeCode) => {
         return new Promise((response, reject) => {
-            props.UpdateConstructionType(
-                constructionType,
+            props.RetrieveParametersWithoutAuthorization(
+                parameterTypeCode,
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    RetrieveExpenseRatioList: (props, expenseType) => {
+        return new Promise((response, reject) => {
+            props.RetrieveExpenseRatioList(
+                expenseType,
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    SaveExpenseRatio: (props, expenseRatio) => {
+        return new Promise((response, reject) => {
+            props.SaveExpenseRatio(
+                expenseRatio,
+                ({ RESPONSE }) => {
+                    if (typeof (RESPONSE) === 'string') {
+                        reject(new RangeError(RESPONSE))
+                    }
+                    response(RESPONSE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    UpdateExpenseRatio: (props, expenseRatio) => {
+        return new Promise((response, reject) => {
+            props.UpdateExpenseRatio(
+                expenseRatio,
                 ({ RESPONSE }) => {
                     if (typeof (RESPONSE) === 'string') {
                         reject(new RangeError(RESPONSE))
@@ -147,5 +199,6 @@ const ServiceCaller = {
     },
 
 }
+
 
 export default ServiceCaller;
