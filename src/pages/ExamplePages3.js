@@ -148,6 +148,15 @@ function ExportPages3(props) {
     }
 
     const UpdateExpenseRatio = async (e) => {
+        /*
+              let expenseRatio = {}
+              let expenseRatios = await ServiceCaller.UpdateExpenseRatio(props,expenseRatio );
+              console.log("🚀 ~ file: ExamplePages3.js ~ line 154 ~ UpdateExpenseRatio ~ expenseRatios", expenseRatios)
+              setExpenseRatios(expenseRatios_)
+      
+      */
+
+
         try {
             if (selectedExpenseRatio) {
                 let expenseRatio = {...selectedExpenseRatio, ...SetConcreteExpenseRatioFields()};
