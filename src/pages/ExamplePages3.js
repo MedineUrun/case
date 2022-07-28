@@ -29,9 +29,10 @@ function ExportPages3(props) {
 
     ]);
 
-    const [rowData, setRowData] = useState([]);
+    const [expenseRatios, setExpenseRatios] = useState([]);
+    const [selectedExpenseRatio, setSelectedExpenseRatio] = useState(null)
     const [isSaveBtnDisabled, setIsSaveBtnDisabled] = useState(true)
-    const [isUpdateBtnDisabled, setIsUpdateBtnDisabled] = useState(true)
+    const [isUpdateBtnDisabled, setIsUpdateBtnDisabled] = useState(false)
     const [selectedConstructionType, setSelectedConstructionType] = useState({})
     const [dtValidDate, setDtValidDate] = useState("")
     const [txtRatio, setTxtRatio] = useState("")
@@ -62,9 +63,9 @@ function ExportPages3(props) {
         //burada yeni şeyler yapabilirsin
 
         try {
-            let expenseRatios = await ServiceCaller.RetrieveExpenseRatioList(props, e.ParameterCode);
-            console.log("🚀 ~ file: ExamplePages3.js ~ line 57 ~ RetrieveExpenseRatios ~ expenseRatios", expenseRatios)
-            setRowData(expenseRatios)
+            let expenseRatios_ = await ServiceCaller.RetrieveExpenseRatioList(props, e.ParameterCode);
+            console.log("🚀 ~ file: ExamplePages3.js ~ line 57 ~ RetrieveExpenseRatios ~ expenseRatios", expenseRatios_)
+            setExpenseRatios(expenseRatios_)
         }
         catch (error) {
             alert(error)
@@ -79,9 +80,12 @@ function ExportPages3(props) {
     const onCellClicked = (e) => {
         console.log("onCellClicked", e.data)
         let data = e.data
+        setSelectedExpenseRatio(data)
+
         setIsUpdateBtnDisabled(false)
         setIsSaveBtnDisabled(true)
         setSelectedConstructionType(e.data)
+
         setDtValidDate(moment(data.ValidDate).format("DD.MM.YYYY"))
         setTxtRatio(data.Ratio)
         setNumIntervalStartValue(data.IntervalStartValue)
@@ -91,13 +95,67 @@ function ExportPages3(props) {
     }
 
     const CreateExpenseRatio = async () => {
-        try
-        {
+        try {
             let expenseRatio = {}
-           // SetConcreteExpenseRatioFields(expenseRatio);
-            let expenseRatios = await ServiceCaller.SaveExpenseRatio(props, expenseRatio);
-            console.log("expenseRatios", expenseRatios)
-            setRowData(expenseRatios[0])
+            expenseRatio = SetConcreteExpenseRatioFields();
+            console.log("🚀 ~ file: ExamplePages3.js ~ line 98 ~ CreateExpenseRatio ~ expenseRatio", expenseRatio)
+            let expenseRatios_ = await ServiceCaller.SaveExpenseRatio(props, expenseRatio);
+            console.log("🚀 ~ file: ExamplePages3.js ~ line 100 ~ CreateExpenseRatio ~ expenseRatios", expenseRatios_)
+            setExpenseRatios(expenseRatios_)
+        }
+        catch (error) {
+            console.log(error)
+            alert("Hata")
+        }
+    }
+
+    const SetConcreteExpenseRatioFields = () => {
+        let expenseRatio = {};
+
+        if (dtValidDate === "") {
+            alert("Lütfen geçerli bir tarih giriniz")
+            return;
+        }
+        expenseRatio.ValidDate = moment(dtValidDate, "DD.MM.YYYY").format();
+
+        expenseRatio.ExpenseType = cboExpenseType.selectedExpenseType.ParameterCode;
+        expenseRatio.Ratio = parseFloat(txtRatio.toString().replace(',', '.'));
+
+        if (numIntervalStartValue !== "") {
+            expenseRatio.IntervalStartValue = parseFloat(numIntervalStartValue.toString().replace(',', '.'));
+        } else {
+            expenseRatio.IntervalStartValue = 0.0;
+        }
+        if (numIntervalFinishValue !== "") {
+            expenseRatio.IntervalFinishValue = parseFloat(numIntervalFinishValue.toString().replace(',', '.'));
+        }
+        else {
+            expenseRatio.IntervalFinishValue = 0.0;
+        }
+        if (numMinumumValue !== "") {
+            expenseRatio.MinimumValue = parseFloat(numMinumumValue.toString().replace(',', '.')); //parseFloat(numMinumumValue)
+        }
+        else {
+            expenseRatio.MinimumValue = 0.0;
+        }
+        if (numMaksimumValue !== "") {
+            expenseRatio.MaximumValue = parseFloat(numMaksimumValue.toString().replace(',', '.'));
+        }
+        else {
+            expenseRatio.MaximumValue = 0.0;
+        }
+        return expenseRatio;
+    }
+
+    const UpdateExpenseRatio = async (e) => {
+        try {
+            if (selectedExpenseRatio) {
+                let expenseRatio = {...selectedExpenseRatio, ...SetConcreteExpenseRatioFields()};
+                console.log("🚀 ~ file: ExamplePages3.js ~ line 156 ~ UpdateExpenseRatio ~ newExpenseRatio", expenseRatio)
+
+            } else {
+                alert("Lütfen bir kayıt seçiniz.");
+            }
         }
         catch (error) {
             console.log(error)
@@ -186,6 +244,7 @@ function ExportPages3(props) {
                                     <Typography style={{ width: '30%', fontSize: '10px', marginRight: '13px' }}>Kaydet</Typography>
                                 </Button>
                                 <Button
+                                    onClick={UpdateExpenseRatio}
                                     disabled={isUpdateBtnDisabled}
                                     style={{ opacity: isUpdateBtnDisabled ? 0.6 : 1, color: ' #fff', width: '100px', marginBottom: '8%', marginLeft: '3%', marginTop: '3%', backgroundColor: '#388E3C', boxShadow: '0 0 0.6vw 0 #aeaeae' }}>
                                     <Typography style={{ width: '30%', fontSize: '10px', marginRight: '13px' }}>Güncelle</Typography>
@@ -205,7 +264,7 @@ function ExportPages3(props) {
                 <Grid item xs={12} container>
                     <div className="ag-theme-alpine" style={{ height: 400, width: '100%', marginTop: '-3%' }}>
                         <AgGridReact
-                            rowData={rowData}
+                            rowData={expenseRatios}
                             defaultColDef={defaultColDef}
                             rowSelection={'single'}
                             onCellClicked={onCellClicked}

@@ -141,7 +141,7 @@ export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, Succ
       const body = { userName: userName, expenseRatio: EXPENSE_RATIO };
       axios.post('/api/SaveExpenseRatio', body)
         .then(async response => {
-          SuccessOperation({ SAVED_EXPENSE_RATIO: await response.data });
+          SuccessOperation({ RESPONSE: await response.data });
         }).catch(async error => {
           FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
         });
