@@ -185,11 +185,11 @@ const ServiceCaller = {
         return new Promise((response, reject) => {
             props.UpdateExpenseRatio(
                 expenseRatio,
-                ({ RESPONSE }) => {
-                    if (typeof (RESPONSE) === 'string') {
-                        reject(new RangeError(RESPONSE))
+                ({ UPDATED_EXPENSE_RATIO }) => {
+                    if (typeof (UPDATED_EXPENSE_RATIO) === 'string') {
+                        reject(new RangeError(UPDATED_EXPENSE_RATIO))
                     }
-                    response(RESPONSE);
+                    response(UPDATED_EXPENSE_RATIO);
                 },
                 ({ ERROR_MESSAGE }) => {
                     reject(new URIError(ERROR_MESSAGE))
