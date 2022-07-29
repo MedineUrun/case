@@ -128,7 +128,7 @@ const ServiceCaller = {
             );
         })
     },
-///////////////////////////////
+///////////////////////////////examplepages3
 
     RetrieveParametersWithoutAuthorization: (props, parameterTypeCode) => {
         return new Promise((response, reject) => {
@@ -197,6 +197,91 @@ const ServiceCaller = {
             );
         })
     },
+    ///////////////////////////////examplepages4
+
+    GetNextExemptionCode: (props) => {
+        return new Promise((response, reject) => {
+            props.GetNextExemptionCode(
+                ({ RETRIEVED_NEXT_EXEMPTION_CODE }) => {
+                    if (typeof (RETRIEVED_NEXT_EXEMPTION_CODE) === 'string') {
+                        reject(new RangeError(RETRIEVED_NEXT_EXEMPTION_CODE))
+                    }
+                    response(RETRIEVED_NEXT_EXEMPTION_CODE);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    SaveExemption: (props, exemption) => {
+        return new Promise((response, reject) => {
+            props.SaveExemption(
+                exemption,
+                ({ SAVED_EXEMPTION_PARAMETERS }) => {
+                    if (typeof (SAVED_EXEMPTION_PARAMETERS) === 'string') {
+                        reject(new RangeError(SAVED_EXEMPTION_PARAMETERS))
+                    }
+                    response(SAVED_EXEMPTION_PARAMETERS);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    UpdateExemption: (props, exemption) => {
+        return new Promise((response, reject) => {
+            props.UpdateExemption(
+                exemption,
+                ({ UPDATED_EXEMPTION }) => {
+                    if (typeof (UPDATED_EXEMPTION) === 'string') {
+                        reject(new RangeError(UPDATED_EXEMPTION))
+                    }
+                    response(UPDATED_EXEMPTION);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    RetrieveExemptions: (props) => {
+        return new Promise((response, reject) => {
+            props.RetrieveExemptions(
+                ({ RETRIEVED_EXEMPTIONS }) => {
+                    if (typeof (RETRIEVED_EXEMPTIONS) === 'string') {
+                        reject(new RangeError(RETRIEVED_EXEMPTIONS))
+                    }
+                    response(RETRIEVED_EXEMPTIONS);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
+    RetrieveParametersWithoutAuthorization: (props,parameterTypeCode) => {
+        return new Promise((response, reject) => {
+            props.RetrieveParametersWithoutAuthorization(
+                parameterTypeCode,
+                ({ APPLICATION_TYPES }) => {
+                    if (typeof (APPLICATION_TYPES) === 'string') {
+                        reject(new RangeError(APPLICATION_TYPES))
+                    }
+                    response(APPLICATION_TYPES);
+                },
+                ({ ERROR_MESSAGE }) => {
+                    reject(new URIError(ERROR_MESSAGE))
+                }
+            );
+        })
+    },
+
 
 }
 

@@ -12,6 +12,8 @@ import AddNewTodo from './pages/AddNewTodo';
 import ExamplePages from './pages/ExamplePages';
 import ExamplePages2 from './pages/ExamplePages2';
 import ExamplePages3 from './pages/ExamplePages3';
+import ExamplePages4 from './pages/ExamplePages4';
+
 
 
 
@@ -28,6 +30,8 @@ function App() {
           <Route exact path={'/ExamplePages'} element={<ExamplePages />}/>
           <Route exact path={'/ExamplePages2'} element={<ExamplePages2 />}/>
           <Route exact path={'/ExamplePages3'} element={<ExamplePages3 />}/>
+          <Route exact path={'/ExamplePages4'} element={<ExamplePages4 />}/>
+
 
 
 

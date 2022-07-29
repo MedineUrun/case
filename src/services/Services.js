@@ -110,8 +110,8 @@ export const UpdateConstructionType = (constructionType, SuccessOperation, Faile
     }
 }
 
-/////////
-
+///////// examplepages3
+/*
 export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, SuccessOperation, FailedOperation) => {
     return () => {
       const body = { userName: userName, parameterTypeCode: PARAMETER_TYPE_CODE };
@@ -123,7 +123,7 @@ export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, Succ
         });
     }
   }
-
+*/
   export const RetrieveExpenseRatioList = (EXPENSE_TYPE, SuccessOperation, FailedOperation) => {
     return () => {
       const body = { userName: userName, expenseType: EXPENSE_TYPE };
@@ -154,6 +154,68 @@ export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, Succ
       axios.post('/api/UpdateExpenseRatio', body)
         .then(async response => {
           SuccessOperation({ UPDATED_EXPENSE_RATIO: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  ///////// examplepages4
+
+  export const GetNextExemptionCode = (SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, };
+      axios.post('/api/GetNextExemptionCode', body)
+        .then(async response => {
+          SuccessOperation({ RETRIEVED_NEXT_EXEMPTION_CODE: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+}
+
+export const SaveExemption = (EXEMPTION, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, exemption: EXEMPTION };
+      axios.post('/api/SaveExemption', body)
+        .then(async response => {
+          SuccessOperation({ SAVED_EXEMPTION_PARAMETERS: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const UpdateExemption = (EXEMPTION, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, exemption: EXEMPTION };
+      axios.post('/api/UpdateExemption', body)
+        .then(async response => {
+          SuccessOperation({ UPDATED_EXEMPTION: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const RetrieveExemptions = (SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, };
+      axios.post('/api/RetrieveExemptions', body)
+        .then(async response => {
+          SuccessOperation({ RETRIEVED_EXEMPTIONS: await response.data });
+        }).catch(async error => {
+          FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
+        });
+    }
+  }
+
+  export const RetrieveParametersWithoutAuthorization = (PARAMETER_TYPE_CODE, SuccessOperation, FailedOperation) => {
+    return () => {
+      const body = { userName: userName, parameterTypeCode: PARAMETER_TYPE_CODE };
+      axios.post('/api/RetrieveParametersWithoutAuthorization', body)
+        .then(async response => {
+          SuccessOperation({ APPLICATION_TYPES: await response.data, RETRIEVED_PARAMETERS: await response.data });
         }).catch(async error => {
           FailedOperation({ ERROR_MESSAGE: await error.response.data.Message });
         });

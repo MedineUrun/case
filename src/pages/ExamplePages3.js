@@ -9,7 +9,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import NumberFormat from 'react-number-format';
 import ServiceCaller from '../services/ServiceCalling/ServiceCaller';
-import { RetrieveParametersWithoutAuthorization, RetrieveExpenseRatioList, SaveExpenseRatio, UpdateExpenseRatio, GetHolidays } from '../services/Services'
+import { RetrieveParametersWithoutAuthorization, RetrieveExpenseRatioList, SaveExpenseRatio, UpdateExpenseRatio} from '../services/Services'
 import moment from 'moment';
 import Checkbox from '@mui/material/Checkbox';
 import Select from 'react-select'
@@ -33,7 +33,6 @@ function ExportPages3(props) {
     const [selectedExpenseRatio, setSelectedExpenseRatio] = useState(null)
     const [isSaveBtnDisabled, setIsSaveBtnDisabled] = useState(true)
     const [isUpdateBtnDisabled, setIsUpdateBtnDisabled] = useState(false)
-    const [selectedConstructionType, setSelectedConstructionType] = useState({})
     const [dtValidDate, setDtValidDate] = useState("")
     const [txtRatio, setTxtRatio] = useState("")
     const [numIntervalStartValue, setNumIntervalStartValue] = useState("")
@@ -59,9 +58,7 @@ function ExportPages3(props) {
 
     const RetrieveExpenseRatios = async (e) => { // e seçilen veri select kısmında
         setCboExpenseType(x => ({ ...x, selectedExpenseType: e }))
-
         //burada yeni şeyler yapabilirsin
-
         try {
             let expenseRatios_ = await ServiceCaller.RetrieveExpenseRatioList(props, e.ParameterCode);
             console.log("🚀 ~ file: ExamplePages3.js ~ line 57 ~ RetrieveExpenseRatios ~ expenseRatios", expenseRatios_)
@@ -84,8 +81,6 @@ function ExportPages3(props) {
 
         setIsUpdateBtnDisabled(false)
         setIsSaveBtnDisabled(true)
-        setSelectedConstructionType(e.data)
-
         setDtValidDate(moment(data.ValidDate).format("DD.MM.YYYY"))
         setTxtRatio(data.Ratio)
         setNumIntervalStartValue(data.IntervalStartValue)
@@ -110,8 +105,8 @@ function ExportPages3(props) {
     }
 
     const SetConcreteExpenseRatioFields = () => {
-        let expenseRatio = {};
 
+        let expenseRatio = {};
         if (dtValidDate === "") {
             alert("Lütfen geçerli bir tarih giriniz")
             return;
@@ -148,7 +143,6 @@ function ExportPages3(props) {
     }
 
     const UpdateExpenseRatio = async (e) => {
-
         try {
             if (selectedExpenseRatio) {
                 let expenseRatio = { ...selectedExpenseRatio, ...SetConcreteExpenseRatioFields() };
@@ -303,5 +297,4 @@ export default connect(null, {
     RetrieveExpenseRatioList,
     SaveExpenseRatio,
     UpdateExpenseRatio,
-    GetHolidays,
 })(ExportPages3);
